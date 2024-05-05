@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube-like Video Player</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .video-container {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+        }
+
+        .video-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="video-container">
+        <iframe class="video-iframe" id="videoFrame" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var videoLink = prompt('Enter the YouTube video link:');
+            if (videoLink) {
+                var videoId = extractVideoId(videoLink);
+                if (videoId) {
+                    var videoFrame = document.getElementById('videoFrame');
+                    videoFrame.src = "https://www.youtube.com/embed/" + videoId;
+                } else {
+                    alert("Invalid YouTube link.");
+                }
+            }
+        });
+
+        // Hàm trích xuất ID video từ liên kết YouTube
+        function extractVideoId(url) {
+            var regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            var match = url.match(regExp);
+            if (match && match[2].length == 11) {
+                return match[2];
+            } else {
+                return null;
+            }
+        }  
+    </script>
+</body>
+</html>
